@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+var debug = require('debug')('template1');
+var app = require('../app');
+
+// 웹서버 port 설정 3000 번이 default 이다 
+app.set('port', process.env.PORT || 3000);
+
+var server = app.listen(app.get('port'), function() {
+  debug('Express server listening on port ' + server.address().port);
+});
+
+//실시간 데이터 전송을 위한 socket.io 모듈 설정 
+var socketio = require("socket.io");
+var serverSocket = socketio.listen(server);
+
+//클라이언트가 웹소켓 접속을 했을때 실행할 함수 등록
+serverSocket.sockets.on("connection", function(socket) {
+	console.log("클라이언트가 웹소켓 접속을 했습니다.");
+	
+	//클라이언트가 발생시키는 이벤트에 귀를 기울인다.
+	socket.on("sendMessage", function(data) {	//이벤트명은 이미 정해진 것만 아니라면 마음대로 정할 수 있다.
+		//public 전송으로 전달받은 데이터를 중계한다.
+		serverSocket.sockets.emit("getMessage", data);
+	});
+});

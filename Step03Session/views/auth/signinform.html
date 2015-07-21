@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>signinform.html</title>
+<script type="text/javascript">
+	<% if(msg.length > 0) { %>
+		alert("<%=msg%>");
+	<% } %>
+</script>
+</head>
+<body>
+	<h3>로그인 폼입니다.</h3>
+	<form action="/auth/signin" method="post">
+		<% if(redirectUrl != undefined) { %>
+			<input type="hidden" value="<%=redirectUrl%>" name="redirectUrl" />
+		<% } %>
+		아이디 <input type="text" name="user" />  <br />
+		비밀번호 <input type="text" name="pwd" />  <br />
+		<button type="submit">로그인</button>
+	</form>
+</body>
+</html>

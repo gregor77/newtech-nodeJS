@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>list.html</title>
+<script type="text/javascript">
+	<% if(msg.length > 0) { %>
+		alert("<%=msg%>");
+	<% } %>
+</script>
+</head>
+<body>
+	<h3>회원 목록입니다.</h3>
+	<table>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>주소</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var i in members) { %>
+			<% var tmp = members[i]; %>
+				<tr>
+					<td><%=tmp.num%></td>
+					<td><%=tmp.name%></td>
+					<td><%=tmp.addr%></td>
+				</tr>
+			<% }%>
+		</tbody>
+	</table>
+</body>
+</html>
